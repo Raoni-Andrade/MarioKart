@@ -9,6 +9,10 @@ const resetGame = () => {
   player2.style.backgroundImage = `url(./files/selectPlayer.png)`;
 };
 
+const randomNumber = () => {
+  return (Math.random() * 200);
+}
+
 const startBtnListener = () => {
   const startBtn = document.querySelector('.btn-go');
   const player1 = document.getElementById('player1');
@@ -16,19 +20,26 @@ const startBtnListener = () => {
   const audioWinner = document.getElementById('audioWinner');
 
   startBtn.addEventListener('click', () => {
-    player1.style.marginLeft = parseInt(player1.style.marginLeft) + (Math.random() * 200) + 'px';
-    player2.style.marginLeft = parseInt(player2.style.marginLeft) + (Math.random() * 200) + 'px';
+    player1.style.marginLeft = parseInt(player1.style.marginLeft) + randomNumber() + 'px';
+    player2.style.marginLeft = parseInt(player2.style.marginLeft) + randomNumber() + 'px';
 
-    if (parseInt(player1.style.marginLeft) > window.innerWidth) {
+    const player1Win = parseInt(player1.style.marginLeft) > window.innerWidth;
+    const player2Win = parseInt(player2.style.marginLeft) > window.innerWidth;
+    let p1Score = document.getElementById('p1Score');
+    let p2Score = document.getElementById('p2Score');
+
+    if (player1Win) {
       alert('Player 1 won!');
       audioWinner.play();
       audioWinner.volume = 0.2;
+      p1Score.innerText = +p1Score.innerText + 1; 
       resetGame();      
 
-    } else if (parseInt(player2.style.marginLeft) > window.innerWidth) {
+    } else if (player2Win) {
       alert('Player 2 won!');
       audioWinner.play();
       audioWinner.volume = 0.2;
+      p2Score.innerText = +p2Score.innerText + 1; 
       resetGame();      
     }
   });
