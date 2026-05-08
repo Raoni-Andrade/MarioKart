@@ -1,45 +1,19 @@
 const resetGame = () => {
   const player1 = document.getElementById('player1');
   const player2 = document.getElementById('player2');
-  
+
   player1.style.marginLeft = 0;
   player2.style.marginLeft = 0;
 
-  player1.style.backgroundImage = `url(./files/selectPlayer.png)`
-  player2.style.backgroundImage = `url(./files/selectPlayer.png)`
+  player1.style.backgroundImage = `url(./files/selectPlayer.png)`;
+  player2.style.backgroundImage = `url(./files/selectPlayer.png)`;
 };
 
-window.onload = () => {
-  const players = document.querySelector('.players');
+const startBtnListener = () => {
   const startBtn = document.querySelector('.btn-go');
-  const resetBtn = document.querySelector('.btn-reset');
-  const audioWinner = document.getElementById('audioWinner');
-
-  players.addEventListener('click', (event) => {
-    const selectedPlayer = document.querySelector('.selected')
-    if (selectedPlayer) {
-      selectedPlayer.classList.remove('selected');
-    }
-    event.target.classList.add('selected');
-  })
-
-  const characters = document.getElementsByClassName('playersImages');
-
-  for (let character of characters) {
-    character.addEventListener('click', (event) => {
-      const selectedPlayer = document.querySelector('.selected')
-    if (selectedPlayer) {
-      selectedPlayer.style.backgroundImage = `url(${event.target.src})`;
-      selectedPlayer.classList.remove('selected');
-    }
-    })
-  }
-
   const player1 = document.getElementById('player1');
   const player2 = document.getElementById('player2');
-
-  player1.style.marginLeft = 0;
-  player2.style.marginLeft = 0;
+  const audioWinner = document.getElementById('audioWinner');
 
   startBtn.addEventListener('click', () => {
     player1.style.marginLeft = parseInt(player1.style.marginLeft) + (Math.random() * 200) + 'px';
@@ -59,5 +33,47 @@ window.onload = () => {
     }
   });
 
+};
+
+const resetBtnListener = () => {
+  const resetBtn = document.querySelector('.btn-reset');
   resetBtn.addEventListener('click', resetGame);
+};
+
+const charactersListener = () => {
+  const characters = document.getElementsByClassName('playersImages');
+  for (let character of characters) {
+    character.addEventListener('click', (event) => {
+      const selectedPlayer = document.querySelector('.selected')
+      if (selectedPlayer) {
+        selectedPlayer.style.backgroundImage = `url(${event.target.src})`;
+        selectedPlayer.classList.remove('selected');
+      }
+    });
+  }
+};
+
+const playersListener = () => {
+  const players = document.querySelector('.players');
+  players.addEventListener('click', (event) => {
+    const selectedPlayer = document.querySelector('.selected')
+    if (selectedPlayer) {
+      selectedPlayer.classList.remove('selected');
+    }
+    event.target.classList.add('selected');
+  });
+};
+
+window.onload = () => {
+  const player1 = document.getElementById('player1');
+  const player2 = document.getElementById('player2');
+
+  player1.style.marginLeft = 0;
+  player2.style.marginLeft = 0;
+
+  startBtnListener();
+  resetBtnListener();
+  charactersListener();
+  playersListener();
+
 }
