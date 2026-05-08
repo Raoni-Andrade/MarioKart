@@ -1,5 +1,5 @@
 window.onload = () => {
-  const players = document.querySelector('.car-section');
+  const players = document.querySelector('.players');
   const startBtn = document.querySelector('.btn-go');
   const resetBtn = document.querySelector('.btn-reset');
 
@@ -10,4 +10,16 @@ window.onload = () => {
     }
     event.target.classList.add('selected');
   })
+
+  const characters = document.getElementsByClassName('playersImages');
+
+  for (let character of characters) {
+    character.addEventListener('click', (event) => {
+      const selectedPlayer = document.querySelector('.selected')
+    if (selectedPlayer) {
+      selectedPlayer.style.backgroundImage = `url(${event.target.src})`;
+      selectedPlayer.classList.remove('selected');
+    }
+    })
+  }
 }
