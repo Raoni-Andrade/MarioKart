@@ -35,6 +35,12 @@ button {
   background-color: rgb(255, 0, 0);
 }
 
+.btn-reset-score {
+  font-size: small;
+  color: black;
+  background-color: rgb(255, 251, 0);
+}
+
 .selectPlayer {
   display: inline-block;
   font-family: 'Luckiest Guy', cursive;

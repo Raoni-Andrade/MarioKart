@@ -83,6 +83,15 @@ const resetBtnListener = () => {
   resetBtn.addEventListener('click', resetGame);
 };
 
+const resetScoreBtnListener = () => {
+  const resetScoreBtn = document.querySelector('.btn-reset-score');
+
+  resetScoreBtn.addEventListener('click', () => {
+    localStorage.clear();
+    location.reload();
+  });
+};
+
 const charactersListener = () => {
   const characters = document.getElementsByClassName('playersImages');
   for (let character of characters) {
@@ -119,4 +128,5 @@ window.onload = () => {
   charactersListener();
   playersListener();
   loadScoreBoard();
+  resetScoreBtnListener();
 }
