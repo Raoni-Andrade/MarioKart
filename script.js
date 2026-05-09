@@ -13,6 +13,38 @@ const randomNumber = () => {
   return (Math.random() * 200);
 }
 
+const addP1Score = () => {
+  let p1Score = document.getElementById('p1Score');
+  p1Score.innerText = +p1Score.innerText + 1;
+};
+
+const addP2Score = () => {
+  let p2Score = document.getElementById('p2Score');
+  p2Score.innerText = +p2Score.innerText + 1;
+};
+
+const setScoreBoard = () => {
+  const scores = document.querySelectorAll('.score');
+  const scoresList = [];
+
+  for (let index = 0; index < scores.length; index += 1) {
+    scoresList.push(scores[index].innerText);
+  }
+    
+  localStorage.setItem('scores', JSON.stringify(scoresList));
+};
+
+const loadScoreBoard = () => {
+  const arrayOfSavedScores = JSON.parse(localStorage.getItem('scores'));
+  let scores = document.getElementsByClassName('score');
+
+  if (arrayOfSavedScores) {
+    for (let index = 0; index < arrayOfSavedScores.length; index +=1) {
+      scores[index].innerText = arrayOfSavedScores[index];
+    }
+  };
+};
+
 const startBtnListener = () => {
   const startBtn = document.querySelector('.btn-go');
   const player1 = document.getElementById('player1');
@@ -25,21 +57,21 @@ const startBtnListener = () => {
 
     const player1Win = parseInt(player1.style.marginLeft) > window.innerWidth;
     const player2Win = parseInt(player2.style.marginLeft) > window.innerWidth;
-    let p1Score = document.getElementById('p1Score');
-    let p2Score = document.getElementById('p2Score');
 
     if (player1Win) {
       alert('Player 1 won!');
       audioWinner.play();
       audioWinner.volume = 0.2;
-      p1Score.innerText = +p1Score.innerText + 1; 
+      addP1Score();
+      setScoreBoard();
       resetGame();      
 
     } else if (player2Win) {
       alert('Player 2 won!');
       audioWinner.play();
       audioWinner.volume = 0.2;
-      p2Score.innerText = +p2Score.innerText + 1; 
+      addP2Score();
+      setScoreBoard();
       resetGame();      
     }
   });
@@ -86,5 +118,5 @@ window.onload = () => {
   resetBtnListener();
   charactersListener();
   playersListener();
-
+  loadScoreBoard();
 }
